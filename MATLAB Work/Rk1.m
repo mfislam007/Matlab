@@ -1,0 +1,19 @@
+function [x,y] = Rk1 (x0,y0,h,xend)
+x(1)=x0;
+y(1)=y0;
+n=0;
+while(x(n+1)<=xend)
+    n=n+1;
+    x(n+1)=x(n)+h;
+    x23=x(n)+0.5*h;
+    k1=ODE(x(n),y(n));
+    y2=y(n)+k1*(0.5*h);
+    k2=ODE(x23,y2);
+    y3=y(n)+k2*(0.5*h);
+    k3=ODE(x23,y3);
+    y4=y(n)+k3*(1.0*h);
+    k4=ODE(x(n+1),y4);
+    k=(k1+2*(k2+k3)+k4)/6;
+    y(n+1)=y(n)+k*h;
+end%while
+end%RungeKutta
